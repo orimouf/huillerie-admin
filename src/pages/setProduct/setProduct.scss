@@ -1,0 +1,177 @@
+.setProduct {
+    display: flex;
+    width: 100%;
+
+    .setProductContainer {
+        flex: 6;
+
+        .top {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+            padding: 10px;
+            margin: 20px;
+
+            .hidenMsg {
+                margin-top: 20px;
+                display: flex;
+                justify-content: center;
+                
+                #msgRequest {
+                    display: none;
+                    padding: 10px;
+                    width: 300px;
+                    border: 1px solid red;
+                    border-radius: 5px;
+                    text-align: center;
+                    background-color: #ff000026;
+                    color: red;
+                }
+            }
+
+            .action {
+                display: flex;
+                padding: 5px;
+                border-radius: 5px;
+                width: 200px;
+                height: 70%;
+                margin: auto;
+                align-items: center;
+                justify-content: center;
+            
+                &.addProduct {
+                    color: green;
+                    background-color: rgba(0, 128, 0, 0.151);
+                    border: 1px solid green;
+            
+                    &:hover {
+                        cursor: pointer;
+                        color: white;
+                        background-color: rgb(0 128 0 / 75%);
+                    }
+                }
+            }
+        }
+
+        .bottom {
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            padding: 20px;
+            margin: 10px 20px;
+
+            .datagrid {
+
+                .cellWithStatus {
+                    padding: 5px;
+                    border-radius: 5px;
+                
+                    &.Approved {
+                        color: green;
+                        background-color: rgba(0, 128, 0, 0.151);
+                    } 
+                
+                    &.Pending {
+                        color: goldenrod;
+                        background-color: rgba(189, 189, 3, 0.103);
+                    }
+
+                    &.Deny {
+                        color: rgb(218, 44, 32);
+                        background-color: rgba(189, 87, 3, 0.103);
+                    }
+                }
+
+                .imgsize {
+                    width: 50px;
+                    height: 50px;
+                }
+                
+                .MuiDataGrid-cell{
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                
+                    .action {
+                        display: flex;
+                        padding: 5px;
+                        border-radius: 5px;
+                        width: 200px;
+                        height: 70%;
+                        margin: auto;
+                        align-items: center;
+                        justify-content: center;
+                    
+                        &.pointer-e-n {
+                            pointer-events: "none"
+                        }
+
+                        &.addWeeklyProduct {
+                            cursor: pointer;
+                            color: green;
+                            background-color: rgba(0, 128, 0, 0.151);
+                            border: 1px solid green;
+                    
+                            &:hover {
+                                color: white;
+                                background-color: rgb(0 128 0 / 75%);
+                            }
+                        }
+    
+                        &.Edit {
+                            cursor: pointer;
+                            color: rgb(0, 108, 164);
+                            background-color: rgba(0, 108, 164, 0.29);
+                            border: 1px solid rgb(0, 108, 164);
+                            
+                            &:hover {
+                                color: white;
+                                background-color: rgba(0, 17, 128, 0.75);
+                            }
+                        }
+    
+                        &.Approve {
+                            cursor: pointer;
+                            color: rgb(16, 164, 0);
+                            background-color: rgba(19, 164, 0, 0.29);
+                            border: 1px solid rgb(33, 164, 0);
+                            
+                            &:hover {
+                                color: white;
+                                background-color: rgba(36, 128, 0, 0.75);
+                            }
+                        }
+
+                        &.Pending {
+                            cursor: pointer;
+                            color: goldenrod;
+                            background-color: rgba(189, 189, 3, 0.103);
+                            border: 1px solid rgb(160, 115, 1);
+                            
+                            &:hover {
+                                color: white;
+                                background-color: rgba(189, 189, 3, 0.788);
+                            }
+                        }
+    
+                        &.Delete {
+                            cursor: pointer;
+                            color: rgb(164, 5, 0);
+                            background-color: rgba(164, 11, 0, 0.29);
+                            border: 1px solid rgb(164, 16, 0);
+    
+                            &:hover {
+                                color: white;
+                                background-color: rgba(128, 2, 0, 0.75);
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+    }
+
+}

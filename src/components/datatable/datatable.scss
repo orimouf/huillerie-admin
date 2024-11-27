@@ -1,0 +1,113 @@
+.datatable {
+    height: 600px;
+    padding: 20px;
+
+    .cellWithImg {
+        display: flex;
+        align-items: center;
+
+        .userIcon {
+            font-size: 30px;
+            color: #7451f8;
+            margin-right: 10px;
+        }
+    }
+
+    .cellImg {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .cellWithStatus {
+        padding: 5px;
+        border-radius: 5px;
+
+        &.active {
+            color: green;
+            background-color: rgba(0, 128, 0, 0.05);
+        }
+        &.pending {
+            color: goldenrod;
+            background-color: rgba(255, 217, 0, 0.05);
+        } 
+        
+        &.passive {
+            color: red;
+            background-color: rgba(255, 0, 0, 0.05);
+        } 
+    }
+
+    .cellConfirm {
+        margin-left: 10px;
+
+        input {
+            width: 3em;
+            height: 1.3em;
+        }
+    }
+
+    .cellShipping {
+        margin-left: 10px;
+
+        input {
+            width: 3em;
+            height: 1.3em;
+        }
+    }
+
+    .cellAction {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        .viewButton {
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: darkblue;
+            border: 1px dotted rgba(0, 0, 139, 0.465);
+            cursor: pointer;
+
+            &:hover {
+                background: #b4b5e3;
+            }
+        }
+
+        .deleteButton {
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: crimson;
+            border: 1px dotted rgba(220, 20, 60, 0.537);
+            cursor: pointer;
+            
+            &:hover {
+                background: #f5c1cf;
+            }
+        }
+
+        .confirmButton {
+            padding: 2px 5px;
+            border-radius: 5px;
+            color: green;
+            border: 1px dotted rgba(20, 220, 70, 0.537);
+            cursor: pointer;
+
+            &:hover {
+                background: #9be39b;
+            }
+        }
+    }
+
+    .copyIcon {
+        color: #7451f875;
+        cursor: pointer;
+        font-size: large;
+        z-index: 9999;
+    }
+
+    .copyIcon:hover {
+        color: rgb(116 81 248);
+    }
+}
