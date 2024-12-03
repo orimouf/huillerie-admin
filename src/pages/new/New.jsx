@@ -57,7 +57,7 @@ const New = ({ inputs, title }) => {
 console.log("dddddd");
 
         await Instance.post(`/clients/`, jsonData, {
-          headers: { token: `Bearer ${accessTokenObj}`}
+          headers: { token: `Bearer ${accessTokenObj}`,"Access-Control-Allow-Origin": "*" }
         })
         .then(res => {
           console.log("dddddd");
