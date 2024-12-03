@@ -53,55 +53,47 @@ export const clientInputs = [
 
     {
         id: 1,
-        label: "Name",
+        label: "Client Name",
         type: "text",
-        placeholder: "Client Full Name",
+        placeholder: "Client Full Name ...",
     },
     {
         id: 4,
-        label: "Product Front Image",
-        type: "file"
+        label: "Numbre de Sacs",
+        type: "text",
+        placeholder: "Numbre de sacs ..."
     },
     {
         id: 2,
-        label: "Product Price",
-        type: "text",
-        placeholder: "1200",
+        label: "Date D'arrivage",
+        type: "date"
     },
     {
         id: 5,
-        label: "Product Auther Image",
-        type: "file"
-    },
-    {
-        id: 3,
-        label: "Product Promo Price",
+        label: "Numbre de Bidons",
         type: "text",
-        placeholder: "800",
-        defaultValue: 0,
+        placeholder: "Numbre de Bidons ..."
     },
     {
         id: 6,
-        label: "Product Video",
-        type: "file"
+        label: "Date D'entrée",
+        type: "date"
+    },
+    {
+        id: 3,
+        label: "Heure D'entrée",
+        type: "time"
     },
     {
         id: 7,
-        label: "Product Descrption ...",
-        type: "text",
-        placeholder: "Product Descrption ...",
+        label: "Status",
+        type: "radio"
     },
     {
         id: 8,
-        label: "Product Color",
+        label: "Numero Telephone",
         type: "text",
-        placeholder: "Red, Green, Black",
-    },
-    {
-        id: 9,
-        label: "Product Quantity",
-        type: "text",
-        placeholder: "100",
+        placeholder: "0555-555-555"
     }
     
 ]

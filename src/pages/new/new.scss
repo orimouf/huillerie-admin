@@ -57,6 +57,17 @@
                     .formInput {
                         width: 40%;
 
+                        .radioInput {
+                            display: flex;
+                            justify-content: start;
+                            gap: 10px;
+                            margin-left: 10px;
+
+                            input {
+                                width: auto;
+                            }
+                        }
+
                         .icnSpinner {
                             animation: spin-animation 1s infinite;
                             display: none;

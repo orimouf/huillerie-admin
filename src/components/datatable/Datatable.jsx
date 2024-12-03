@@ -10,7 +10,7 @@ import Instance from '../../context/Instance'
 
 const Datatable = ({ title, page }) => {
 
-  const to = "/"+ title +"/new"
+  const to = `/${title.toLowerCase()}/new`;
   const topTitle = `${page} ${title}`
   const accessTokenObj = JSON.parse(localStorage.getItem('user')).accessToken  
   const [ dataRows, setDataRows ] = useState([])
@@ -18,29 +18,29 @@ const Datatable = ({ title, page }) => {
 
   useEffect(function () {
     setLoadingStatus(true)
-    const fetchData = async () => {
+    // const fetchData = async () => {
 
-      await Instance.get(`${title.toLowerCase()}/`, {
-        headers: { token: `Bearer ${accessTokenObj}` }
-      })
-      .then(res => {
-        setLoadingStatus(false)
-        const data = res.data
-        data.map((e, i) => Object.assign(e, {id: i}));
+    //   await Instance.get(`${title.toLowerCase()}/`, {
+    //     headers: { token: `Bearer ${accessTokenObj}` }
+    //   })
+    //   .then(res => {
+    //     setLoadingStatus(false)
+    //     const data = res.data
+    //     data.map((e, i) => Object.assign(e, {id: i}));
         
-        title === "Users" && setDataRows(data.map(e => e.isAdmin === true ? e.isAdmin = "ADMIN" :  e.isAdmin = "NOT ADMIN"));
-        (title === "Orders" && page !== "Confirmed") ? setDataRows(data.filter(o => !o.isConfirm)) : setDataRows(data.filter(o => o.isConfirm));
-        title === "Clients" && setDataRows(data);
+    //     title === "Users" && setDataRows(data.map(e => e.isAdmin === true ? e.isAdmin = "ADMIN" :  e.isAdmin = "NOT ADMIN"));
+    //     (title === "Orders" && page !== "Confirmed") ? setDataRows(data.filter(o => !o.isConfirm)) : setDataRows(data.filter(o => o.isConfirm));
+    //     title === "Clients" && setDataRows(data);
         
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response);
-        }
-      });
-    };
-    fetchData();
-
+    //   })
+    //   .catch(function (error) {
+    //     if (error.response) {
+    //       console.log(error.response);
+    //     }
+    //   });
+    // };
+    // fetchData();
+    setLoadingStatus(false)
   },[ accessTokenObj, title, page])
 
   const handleConfirmOut = async (_id, row, option) => {
@@ -164,7 +164,7 @@ const Datatable = ({ title, page }) => {
         className="datagrid"
         getRowId={(row) => row._id}
         rows={dataRows}
-        columns={title === "Users" ? userColumns.concat(actionUserColumn) : title !== "Clients" ? ordersColumns.concat(actionInvestorColumn) : clientsColumns}
+        columns={title === "Users" ? userColumns.concat(actionUserColumn) : ordersColumns.concat(actionInvestorColumn)}
         pageSize={9}
         rowsPerPageOptions={[9]}
         checkboxSelection
