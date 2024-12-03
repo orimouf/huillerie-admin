@@ -3,7 +3,7 @@ import { loginFailure, loginStart, loginSuccess, logout } from "./AuthActions";
 
 export const login = async (user, dispatch) => {
     console.log("-------------");
-    
+    console.log(user);
     let msgLogin = document.getElementsByClassName("msgLogin")[0]
     let textLogin = document.getElementsByClassName("textLogin")[0]
     let loadingLogin = document.getElementsByClassName("icnSpinner")[0]
