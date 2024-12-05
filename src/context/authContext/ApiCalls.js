@@ -9,7 +9,7 @@ export const login = async (user, dispatch) => {
     let loadingLogin = document.getElementsByClassName("icnSpinner")[0]
     dispatch(loginStart());
     try {
-        const res = await axios.post("/api/auth/login", user)
+        const res = await axios.post("https://huillerie-api.onrender.com/api/auth/login", user)
         
         console.log("---------------------");
         console.log(res);
