@@ -10,8 +10,11 @@ export const login = async (user, dispatch) => {
     dispatch(loginStart());
     try {
         const res = await axios.post("/api/auth/login", user)
+        
+        console.log("---------------------");
         console.log(res);
         console.log(res.data);
+
         res.data.isAdmin && dispatch(loginSuccess(res.data))
         msgLogin.style.display = "none"
     } catch (err) {
