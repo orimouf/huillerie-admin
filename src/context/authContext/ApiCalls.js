@@ -1,4 +1,5 @@
 import axios from "axios";
+import Instance from '../../context/Instance'
 import { loginFailure, loginStart, loginSuccess, logout } from "./AuthActions";
 
 export const login = async (user, dispatch) => {
@@ -9,7 +10,7 @@ export const login = async (user, dispatch) => {
     let loadingLogin = document.getElementsByClassName("icnSpinner")[0]
     dispatch(loginStart());
     try {
-        const res = await axios.post("https://huillerie-api.onrender.com/api/auth/login", user)
+        const res = await Instance.post("/auth/login/", user)
         
         console.log("---------------------");
         console.log(res);
