@@ -22,6 +22,20 @@ const New = ({ inputs, title }) => {
     document.getElementById("sendLabel").style = "display: none"
     document.getElementById("sendSpinner").style = "display: block"
 
+    const fetchUniqueId = async () => {
+      await Instance.put(`/uniqueIds/`, {
+        headers: { token: `Bearer ${accessTokenObj}` }
+      })
+      .then(res => {
+        return res.data.uniqueId
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response);
+        }
+      });
+    };
+
     title === "User" ? 
       jsonData = {
         fullName: e.target[0].value,
@@ -31,7 +45,7 @@ const New = ({ inputs, title }) => {
         isAdmin: e.target[4].checked,
       } : 
       jsonData = {
-        uniqueId: "0002",
+        uniqueId: fetchUniqueId(),
         clientName: e.target[0].value,
         phone: e.target[9].value,
         nbrSacs: e.target[1].value,
@@ -54,13 +68,11 @@ const New = ({ inputs, title }) => {
     if (title !== "User") { 
       if (jsonData.clientName !== "" && jsonData.phone !== "" && jsonData.nbrSacs !== "" && jsonData.nbrBuckets !== ""
        && jsonData.arrivalDate !== "" && jsonData.entryDate !== "" && jsonData.entryTime !== "" && jsonData.status !== "" ) {
-console.log("dddddd");
 
         await Instance.post(`/clients/`, jsonData, {
           headers: { token: `Bearer ${accessTokenObj}`,"Access-Control-Allow-Origin": "*" }
         })
         .then(res => {
-          console.log("dddddd");
           const client = res.data;
           console.log(client);
           
