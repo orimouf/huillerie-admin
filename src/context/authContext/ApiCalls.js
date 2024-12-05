@@ -22,7 +22,7 @@ export const login = async (user, dispatch) => {
         console.log("ERROR")
         console.log(err)
         msgLogin.style.display = "block"
-        msgLogin.innerHTML = err.response.code
+        msgLogin.innerHTML = "ERROR !"
         textLogin.innerHTML = "LOGIN"
         loadingLogin.style = "display: none; margin: auto;"
         dispatch(loginFailure());
