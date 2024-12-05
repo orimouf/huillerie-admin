@@ -22,21 +22,14 @@ const New = ({ inputs, title }) => {
     document.getElementById("sendLabel").style = "display: none"
     document.getElementById("sendSpinner").style = "display: block"
 
-    const fetchUniqueId = async () => {
+    // const fetchUniqueId = async () => {
       await Instance.put(`/uniqueIds/`, {
         headers: { token: `Bearer ${accessTokenObj}` }
       })
       .then(res => {
-        return res.data.uniqueId
-      })
-      .catch(function (error) {
-        if (error.response) {
-          console.log(error.response);
-        }
-      });
-    };
+        const uniqueId = res.data.uniqueId;
 
-    title === "User" ? 
+        title === "User" ? 
       jsonData = {
         fullName: e.target[0].value,
         email: e.target[1].value,
@@ -45,7 +38,7 @@ const New = ({ inputs, title }) => {
         isAdmin: e.target[4].checked,
       } : 
       jsonData = {
-        uniqueId: fetchUniqueId(),
+        uniqueId: uniqueId,
         clientName: e.target[0].value,
         phone: e.target[9].value,
         nbrSacs: e.target[1].value,
@@ -69,6 +62,7 @@ const New = ({ inputs, title }) => {
       if (jsonData.clientName !== "" && jsonData.phone !== "" && jsonData.nbrSacs !== "" && jsonData.nbrBuckets !== ""
        && jsonData.arrivalDate !== "" && jsonData.entryDate !== "" && jsonData.entryTime !== "" && jsonData.status !== "" ) {
 
+      const postClient =  async () => { 
         await Instance.post(`/clients/`, jsonData, {
           headers: { token: `Bearer ${accessTokenObj}`,"Access-Control-Allow-Origin": "*" }
         })
@@ -106,7 +100,8 @@ const New = ({ inputs, title }) => {
             }
           }
         });
-      
+      }
+      postClient()
   
       } else {
         e.target[0].value ? e.target[0].style.borderBottom = "1px solid gray" : e.target[0].style.borderBottom = "2px solid red"
@@ -123,6 +118,14 @@ const New = ({ inputs, title }) => {
         document.getElementById("sendSpinner").style = "display: none"
       }
     }
+
+      })
+      .catch(function (error) {
+        if (error.response) {
+          console.log(error.response);
+        }
+      });
+    // };
 
   }
 
