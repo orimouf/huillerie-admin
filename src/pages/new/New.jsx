@@ -11,8 +11,15 @@ import Instance from '../../context/Instance'
 
 const New = ({ inputs, title }) => {
 
-  const accessTokenObj = JSON.parse(localStorage.getItem('user')).accessToken  
-  const [product, setProduct] = useState([]);
+  const accessTokenObj = JSON.parse(localStorage.getItem('user')).accessToken;
+  const [uniqueId, setUniqueId] = useState("000");
+  const [clientName, setClientName] = useState("إسم الزبون");
+  const [clientPhone, setClientPhone] = useState("رقم الزبون");
+  const [numberSacs, setNumberSacs] = useState("0");
+  const [numberBidons, setNumberBidons] = useState("0");
+  const [arivalDate, setArivalDate] = useState("00-00-0000");
+  const [entryDate, setEntryDate] = useState("00-00-0000");
+  const [entryTime, setEntryTime] = useState("00:00");
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -28,6 +35,7 @@ const New = ({ inputs, title }) => {
       })
       .then(res => {
         const uniqueId = res.data.uniqueId;
+        const statusValue = e.target[6].checked ? e.target[6].value : e.target[7].checked ? e.target[7].value : e.target[8].value
 
         title === "User" ? 
       jsonData = {
@@ -53,7 +61,7 @@ const New = ({ inputs, title }) => {
         paymentPrice: "0",
         restPrice: "0",
         paymentStatus: false,
-        status: "Ne Passe Pas", //e.target[6].value,
+        status: statusValue,
         buckets5L: "0",
         otherBuckets: "0" 
       }
@@ -69,6 +77,14 @@ const New = ({ inputs, title }) => {
         .then(res => {
           const client = res.data;
           console.log(client);
+          setUniqueId(client.uniqueId)
+          setClientName(client.clientName)
+          setClientPhone(client.phone)
+          setNumberSacs(client.nbrSacs)
+          setNumberBidons(client.nbrBuckets)
+          setArivalDate(client.arrivalDate)
+          setEntryDate(client.entryDate)
+          setEntryTime(client.entryTime)
           
           // setProduct(product)
           document.getElementById("msgRequest").style.display = "none"
@@ -77,12 +93,6 @@ const New = ({ inputs, title }) => {
           document.getElementById("sendSpinner").style = "display: none"       
           // popup msg in 5s
           TopPopUpMsg(5, `${title} ${client.clientName} is added successfully.`)
-          document.getElementById("input-4").style = "display: block";
-          document.getElementById("input-5").style = "display: block";
-          document.getElementById("input-6").style = "display: block";
-          document.getElementById("file-4").innerHTML = "";
-          document.getElementById("file-5").innerHTML = "";
-          document.getElementById("file-6").innerHTML = "";
           e.target.reset()
         }) 
         .catch(function (error) {
@@ -110,9 +120,8 @@ const New = ({ inputs, title }) => {
         e.target[3].value ? e.target[3].style.borderBottom = "1px solid gray" : e.target[3].style.borderBottom = "2px solid red"
         e.target[4].value ? e.target[4].style.borderBottom = "1px solid gray" : e.target[4].style.borderBottom = "2px solid red"
         e.target[5].value ? e.target[5].style.borderBottom = "1px solid gray" : e.target[5].style.borderBottom = "2px solid red"
-        e.target[6].value ? e.target[6].style.borderBottom = "1px solid gray" : e.target[6].style.borderBottom = "2px solid red"
-        e.target[7].value ? e.target[7].style.borderBottom = "1px solid gray" : e.target[7].style.borderBottom = "2px solid red"
-        e.target[8].value ? e.target[8].style.borderBottom = "1px solid gray" : e.target[8].style.borderBottom = "2px solid red"
+        e.target[6].value ? e.target[6].style.accentColor = "auto" : e.target[6].style.accentColor= "red";
+        e.target[9].value ? e.target[9].style.borderBottom = "1px solid gray" : e.target[9].style.borderBottom = "2px solid red"
         document.getElementsByClassName("sendBtn")[0].style = "pointer-events: all"
         document.getElementById("sendLabel").style = "display: block"
         document.getElementById("sendSpinner").style = "display: none"
@@ -140,6 +149,41 @@ const New = ({ inputs, title }) => {
         <div className="bottom">
           <div className="left">
             <h4>{title} Card</h4>
+            <div id="cardClient" className="card">
+              <div className="cardLeft">
+                <div className="item-L1"><h1>{uniqueId}</h1></div>
+                <div className="item-L2"><h3>{clientName}</h3></div>
+                <div className="item-L3"><h3>{clientPhone}</h3></div>
+                <div className="item-L4"><h4>الوزن</h4></div>
+                <div className="item-L5"><h4>اللترات</h4></div>
+                <div className="item-L6"><h4>المردود</h4></div>
+              </div>
+              <div className="cardRight">
+                <div className="item-R1">
+                  <div><h3>الأكياس</h3></div>
+                  <div><h1>{numberSacs}</h1></div>
+                </div>
+                <div className="item-R2">
+                  <div><h3>الدلاء</h3></div>
+                  <div><h1>{numberBidons}</h1></div>
+                </div>
+                <div className="item-R3">
+                  <h5>يوم الوصول</h5>
+                  <h6>{arivalDate}</h6>
+                </div>
+                <div className="item-R4">
+                  <h5>يوم الدخول</h5>
+                  <h6>{entryDate}</h6>
+                </div>
+                <div className="item-R5">
+                  <h5>ساعة الدخول</h5>
+                  <h6>{entryTime}</h6>
+                </div>
+              </div>
+            </div>
+            <div className="printButton">
+                <button onClick={window.print} className="sendBtn"><b>Print</b></button>
+            </div>
           </div>
           <div className="right">
             <form onSubmit={handleSubmit}>
@@ -151,15 +195,15 @@ const New = ({ inputs, title }) => {
                   <div className="formInput" key={input.id}>
                     <label>{input.label}</label>
                     <div className="radioInput">
-                      <input type={input.type} name="status" value=""/>
+                      <input type={input.type} name="status" value="Passe"/>
                       <label>Passe</label>
                     </div>
                     <div className="radioInput">
-                      <input type={input.type} name="status" value=""/>
+                      <input type={input.type} name="status" value="Ne Passe Pas" defaultChecked/>
                       <label>Ne Passe Pas</label>
                     </div>
                     <div className="radioInput">
-                      <input type={input.type} name="status" value=""/>
+                      <input type={input.type} name="status" value="Pas présent"/>
                       <label>Pas présent</label>
                     </div>
                   </div>

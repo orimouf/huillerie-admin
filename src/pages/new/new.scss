@@ -32,6 +32,141 @@
                         height: 400px;
                     }
                 }
+
+                .card {
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: row;
+                    width: 100%;
+                    height: 100%;
+
+                    .cardLeft {
+                        display: flex;
+                        justify-content: start;
+                        flex-direction: column;
+                        flex: 2 3;
+
+                        .item-L1 { 
+                            flex: 2 6; 
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center; 
+
+                            h1 {
+                                font-size: 4rem;
+                                font-weight: 900;
+                                font-family: sans-serif;
+                            }
+                        }
+                        .item-L2 { 
+                            flex: 1 6; 
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .item-L3 { 
+                            flex: 1 6; 
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                        .item-L4 { 
+                            flex: 1 6; 
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: end;
+
+                            h4 {
+                                color: black;
+                                margin-right: 10px;
+                            }
+                        }
+                        .item-L5 { 
+                            flex: 1 6; 
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: end;
+
+                            h4 {
+                                color: black;
+                                margin-right: 10px;
+                            }
+                        }
+                        .item-L6 { 
+                            flex: 1 6; 
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: end;
+
+                            h4 {
+                                color: black;
+                                margin-right: 10px;
+                            }
+                        }
+                    }
+
+                    .cardRight {
+                        display: flex;
+                        justify-content: center;
+                        flex-direction: column;
+                        flex: 1 3;
+
+                        .item-R1 {
+                            flex: 2 6;
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+
+                            h1 { font-weight: 900; }
+                        }
+
+                        .item-R2 {
+                            flex: 2 6;
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+
+                            h1 { font-weight: 900; }
+                        }
+
+                        .item-R3 {
+                            flex: 1 6;
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+                        }
+
+                        .item-R4 {
+                            flex: 1 6;
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+                        }
+
+                        .item-R5 {
+                            flex: 1 6;
+                            border: 1px solid black;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            flex-direction: column;
+                        }
+                    }
+                }
             }
 
             .right {
@@ -154,5 +289,22 @@
                 }
             }
         }
+    }
+}
+
+@media print {
+    /* All your print styles go here */
+    .right,
+    .sidebar,
+    .navbar,
+    .top,
+    .printButton ,
+    .left>h4 {
+      display: none !important;
+    }
+
+    .left {
+        width: 100%;
+        height: 100%;
     }
 }
