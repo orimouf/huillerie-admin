@@ -81,8 +81,6 @@ export const clientInputs = [
     },
     {
         id: 3,
-        label: "Heure D'entrée",
-        type: "time"
     },
     {
         id: 7,

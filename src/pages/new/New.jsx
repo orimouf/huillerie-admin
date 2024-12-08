@@ -20,6 +20,24 @@ const New = ({ inputs, title }) => {
   const [arivalDate, setArivalDate] = useState("00-00-0000");
   const [entryDate, setEntryDate] = useState("00-00-0000");
   const [entryTime, setEntryTime] = useState("00:00");
+  const [arrayTime, setArrayTime] = useState(["chose a date"]);
+
+  const handleListTime = async (e) => {
+    e.preventDefault()
+
+    await Instance.get(`/lists/find/${e.target.value}`, {
+      headers: { token: `Bearer ${accessTokenObj}`,"Access-Control-Allow-Origin": "*" }
+    })
+    .then(res => {
+      const list = res.data;
+      console.log(list.timeArray);
+      
+      setArrayTime(list.timeArray)
+    }) 
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -208,6 +226,19 @@ const New = ({ inputs, title }) => {
                     </div>
                   </div>
                   : 
+                  input.id === 6 ?
+                  <div className="formInput" key={input.id}>
+                    <label>{input.label}</label>
+                    <input type={input.type} placeholder={input.placeholder} onChange={handleListTime} />
+                  </div>
+                  :
+                  input.id === 3 ?
+                  <select name="cars" id="cars" key={input.id}>
+                    {arrayTime.map((e, i) =>
+                      <option key={i} value={e}>{e}</option>
+                    )};
+                  </select>
+                  :
                   <div className="formInput" key={input.id}>
                     <label>{input.label}</label>
                     <input type={input.type} placeholder={input.placeholder} />
