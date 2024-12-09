@@ -24,13 +24,20 @@
                 justify-content: center;
                 flex-direction: column;
 
-                h4 {color: #5f6262;}
-                .showContainer {
-                    
-                    .noImage {
-                        width: 350px;
-                        height: 400px;
+                .cardTitle {
+                    display: flex;
+                    justify-content: space-around;
+                    width: 100%;
+
+                    h4 {color: #5f6262;}
+                    .showContainer {
+                        
+                        .noImage {
+                            width: 350px;
+                            height: 400px;
+                        }
                     }
+
                 }
 
                 .card {

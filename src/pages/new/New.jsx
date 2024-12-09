@@ -8,6 +8,7 @@ import { TopPopUpMsg } from "../../components/popupmsg/js/topmsg"
 import ItemBanner from "../../components/ItamBanner/ItemBanner"
 import { Link } from "react-router-dom"; 
 import Instance from '../../context/Instance'
+import Loading from '../../components/loading/Loading'
 
 const New = ({ inputs, title }) => {
 
@@ -20,27 +21,59 @@ const New = ({ inputs, title }) => {
   const [arivalDate, setArivalDate] = useState("00-00-0000");
   const [entryDate, setEntryDate] = useState("00-00-0000");
   const [entryTime, setEntryTime] = useState("00:00");
-  const [arrayTime, setArrayTime] = useState(["chose a date"]);
+  const [arrayTime, setArrayTime] = useState([1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0]);
+  const [ loadingStatus, setLoadingStatus ] = useState(false)
 
   const handleListTime = async (e) => {
     e.preventDefault()
+    setLoadingStatus(true)
 
     await Instance.get(`/lists/find/${e.target.value}`, {
       headers: { token: `Bearer ${accessTokenObj}`,"Access-Control-Allow-Origin": "*" }
     })
     .then(res => {
       const list = res.data;
-      console.log(list.timeArray);
-      
-      setArrayTime(list.timeArray)
+
+      if (list === null) {
+        setArrayTime([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0])
+        setLoadingStatus(false)
+      } else {
+        //"القائمة ممتلئة لهدا اليوم"
+        setArrayTime(list.timeArray)
+        setLoadingStatus(false)
+      }
     }) 
     .catch(function (error) {
       console.log(error);
     });
   }
 
+  const postList =  async (entryD, entryTimeIndex, uniqueId) => { 
+    
+    var numberOccuped = 0
+    arrayTime.fill( uniqueId, parseInt(entryTimeIndex), (parseInt(entryTimeIndex) + 1) )
+    arrayTime.map( (e, i) => (e === 0) && numberOccuped++) 
+
+    await Instance.post(`/lists/`, {
+      date: entryD,
+      timeArray: arrayTime,
+      status: (numberOccuped === 0) ? "Plen" : "En Coure"
+    }, {
+      headers: { token: `Bearer ${accessTokenObj}`,"Access-Control-Allow-Origin": "*" }
+    })
+    .then(res => {
+        const list = res.data;
+        console.log(list);
+        setLoadingStatus(false)
+      }) 
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setLoadingStatus(true)
     let jsonData = {}
 
     document.getElementsByClassName("sendBtn")[0].style = "pointer-events: none"
@@ -74,7 +107,7 @@ const New = ({ inputs, title }) => {
         litersIn100Kg: "0",
         arrivalDate: e.target[2].value,
         entryDate: e.target[4].value,
-        entryTime: e.target[5].value,
+        entryTime: fetchArray(parseInt(e.target[5].value)),
         totalPrice: "0",
         paymentPrice: "0",
         restPrice: "0",
@@ -86,7 +119,7 @@ const New = ({ inputs, title }) => {
 
     if (title !== "User") { 
       if (jsonData.clientName !== "" && jsonData.phone !== "" && jsonData.nbrSacs !== "" && jsonData.nbrBuckets !== ""
-       && jsonData.arrivalDate !== "" && jsonData.entryDate !== "" && jsonData.entryTime !== "" && jsonData.status !== "" ) {
+       && jsonData.arrivalDate !== "" && jsonData.entryDate !== "" && jsonData.entryTime !== 0 && jsonData.status !== "" ) {
 
       const postClient =  async () => { 
         await Instance.post(`/clients/`, jsonData, {
@@ -111,10 +144,12 @@ const New = ({ inputs, title }) => {
           document.getElementById("sendSpinner").style = "display: none"       
           // popup msg in 5s
           TopPopUpMsg(5, `${title} ${client.clientName} is added successfully.`)
+          postList(client.entryDate, e.target[5].value, client.uniqueId)
           e.target.reset()
         }) 
         .catch(function (error) {
           console.log(error);
+          setLoadingStatus(false)
           if (error.response) {
             document.getElementsByClassName("sendBtn")[0].style = "pointer-events: all"
             document.getElementById("sendLabel").style = "display: block"
@@ -156,17 +191,102 @@ const New = ({ inputs, title }) => {
 
   }
 
+  const fetchArray = (index) => {    
+    switch(index) {
+      case 0:
+        return '08:30';
+      case 1:
+        return '08:45';
+      case 2:
+        return '09:00';
+      case 3:
+        return '09:15';
+      case 4:
+        return '09:30';
+      case 5:
+        return '09:45';
+      case 6:
+        return '10:00';
+      case 7:
+        return '10:15';
+      case 8:
+        return '10:30';
+      case 9:
+        return '10:45';
+      case 10:
+        return '11:00';
+      case 11:
+        return '11:15';
+      case 12:
+        return '11:30';
+      case 13:
+        return '11:45';
+      case 14:
+        return '12:00';
+      case 15:
+        return '12:15';
+      case 16:
+        return '12:30';
+      case 17:
+        return '12:45';
+      case 18:
+        return '01:00';
+      case 19:
+        return '01:15';
+      case 20:
+        return '01:30';
+      case 21:
+        return '01:45';
+      case 22:
+        return '02:00';
+      case 23:
+        return '02:15';
+      case 24:
+        return '02:30';
+      case 25:
+        return '02:45';
+      case 26:
+        return '03:00';
+      case 27:
+        return '03:15';
+      case 28:
+        return '03:30';
+      case 29:
+        return '03:45';
+      case 30:
+        return '04:00';
+      case 31:
+        return '04:15';
+      case 32:
+        return '04:30';
+      case 33:
+        return '04:45';
+      case 34:
+        return '05:00';
+      case 35:
+        return '05:30';
+      default:
+        return 'إختر تاريخ الدخول أولا';
+    }
+  }
+
   return (
     <div className="new">
       <Sidebar />
       <div className="newContainer">
+      <Loading status={loadingStatus} page={"setProduct"} />
         <Navbar />
         <div className="top">
           <Goback className="topBack" title={<h1>Add New {title}</h1>} btn={<Link to=""><div></div></Link>} />
         </div>
         <div className="bottom">
           <div className="left">
-            <h4>{title} Card</h4>
+            <div className="cardTitle">
+              <h4>{title} Card</h4>
+              <div className="printButton">
+                  <button onClick={window.print} className="sendBtn"><b>Print</b></button>
+              </div>
+            </div>
             <div id="cardClient" className="card">
               <div className="cardLeft">
                 <div className="item-L1"><h1>{uniqueId}</h1></div>
@@ -199,9 +319,6 @@ const New = ({ inputs, title }) => {
                 </div>
               </div>
             </div>
-            <div className="printButton">
-                <button onClick={window.print} className="sendBtn"><b>Print</b></button>
-            </div>
           </div>
           <div className="right">
             <form onSubmit={handleSubmit}>
@@ -233,9 +350,9 @@ const New = ({ inputs, title }) => {
                   </div>
                   :
                   input.id === 3 ?
-                  <select name="cars" id="cars" key={input.id}>
+                  <select className="formInput" name="selectTime" id="selectTime" key={input.id} >
                     {arrayTime.map((e, i) =>
-                      <option key={i} value={e}>{e}</option>
+                      e === 0 && <option key={i} value={i}>{fetchArray(i)}</option>
                     )};
                   </select>
                   :
